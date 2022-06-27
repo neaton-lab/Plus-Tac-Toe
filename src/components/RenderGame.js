@@ -11,7 +11,7 @@ class Square extends React.Component {
 
     render() {
         return (
-            <button className="bg-white hover:bg-slate-300 text-black h-[100px] w-[100px] border-4 border-black text-5xl text-center -mt-1 -mr-1 p-0" 
+            <button className="bg-white hover:bg-slate-300 text-black h-[40px] md:h-[100px] w-[40px] md:w-[100px] border-2 md:border-4 border-black text-3xl md:text-5xl text-center -mt-1 -mr-1 p-0" 
             onClick={() => this.setState({value: 'X'})}
             >
                 {this.state.value}

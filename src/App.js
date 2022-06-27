@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 function App() {
   return (
     <Router>
-      <div>
+      <div className='min-h-screen bg-white text-black dark:bg-[#121212]  dark:text-gray-100/90'>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/settings" component={Settings} />

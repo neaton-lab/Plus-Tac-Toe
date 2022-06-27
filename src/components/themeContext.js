@@ -7,10 +7,10 @@ const getInitialTheme = () => {
       return storedPrefs;
     }
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+      return 'light';
     }
   }
-  return 'light';
+  return 'dark';
 };
 
 export const ThemeContext = React.createContext();

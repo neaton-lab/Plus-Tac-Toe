@@ -4,7 +4,7 @@ import RenderGame from '../components/RenderGame'
 
 function Game() {
     return (
-        <div className='w-screen h-screen bg-[#121212] text-white/90'>
+        <body>
             <Link to="/">
                 {/* Icon from Hero Icons Icon-Arrow-Circle-Left */}
                 <button className='text-gray-700 text-center bg-gray-400 hover:bg-gray-500 px-4 py-4 m-5 rounded-full'>
@@ -14,9 +14,9 @@ function Game() {
                 </button>
             </Link>
             <div className='flex left-0 flex-row'>
-                <div className='w-[400px]'>
-                    <h1 className='text-center text-5xl mb-12'>History</h1>
-                    <div className='h-[900px] text-center text-3xl'>
+                <div className='w-[100px] md:w-[400px]'>
+                    <h1 className='text-center text-2xl md:text-5xl mb-12'>History</h1>
+                    <div className='h-[550px] md:h-[900px] text-center text-3xl'>
                         {/* History goes here */}
                     </div>
                 </div>
@@ -25,14 +25,14 @@ function Game() {
                 </div>
             </div>
             <footer>
-                <div className='grid grid-cols-4 text-center text-4xl'>
+                <div className='grid grid-cols-4 text-center text-2xl md:text-4xl'>
                     <h1 className='text-[#d12360]'>Player 1: X</h1>
                     <h1 className='text-[#2b76d4]'>Player 2: O</h1>
                     <h1 className='text-[#f5f431]'>Player 3: ✓</h1>
                     <h1 className='text-[#ff8100]'>Player 4: #</h1>
                 </div>
             </footer>
-        </div>
+        </body>
     )
 }
 
