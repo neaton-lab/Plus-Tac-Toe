@@ -7,12 +7,22 @@ class Square extends React.Component {
         this.state = {
             value: null,
         };
+        // Bind the position to easily usable values
+        this.x_pos = props.x_pos;
+        this.y_pos = props.y_pos;
+    }
+
+    claim = (player) => {
+        this.props.sendClaim(this.x_pos, this.y_pos, player);
     }
 
     render() {
         return (
             <button className="bg-white hover:bg-slate-300 text-black h-[40px] md:h-[100px] w-[40px] md:w-[100px] border-2 md:border-4 border-black text-3xl md:text-5xl text-center -mt-1 -mr-1 p-0" 
-            onClick={() => this.setState({value: 'X'})}
+            onClick={() => {
+                this.setState({value: 'X'});
+                this.claim('X');
+            }}
             >
                 {this.state.value}
             </button>
@@ -20,9 +30,36 @@ class Square extends React.Component {
     }
 }
 
+class Grid {
+    constructor() {
+        // Initialize a 2D array
+        this.grid = [];
+        for (var i = 0 ; i < 9 ; i++) {
+            this.grid[i] = [];
+            for (var j = 0 ; j < 9 ; j++) {
+                this.grid[i][j] = '';
+            }
+        }
+    }
+}
+
 class Board extends React.Component {
-    renderSquare(i) {
-        return <Square value={i} />;
+    constructor(props) {
+        super(props);
+        this.grid = new Grid();
+    }
+    
+    getClaim = (x_pos, y_pos, player) => {
+        this.grid.grid[x_pos][y_pos] = player;
+        console.log(this.grid.grid);
+    }
+    
+    renderSquare(x_pos, y_pos) {
+        return <Square 
+                x_pos={x_pos}
+                y_pos={y_pos}
+                sendClaim={this.getClaim.bind(this)}
+                />;
     }
 
     render() {
@@ -32,103 +69,103 @@ class Board extends React.Component {
             <div>
                 <div className="mb-[10px] text-3xl">{status}</div>
                 <div className="">
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
+                    {this.renderSquare(0, 0)}
+                    {this.renderSquare(0, 1)}
+                    {this.renderSquare(0, 2)}
+                    {this.renderSquare(0, 3)}
+                    {this.renderSquare(0, 4)}
+                    {this.renderSquare(0, 5)}
+                    {this.renderSquare(0, 6)}
+                    {this.renderSquare(0, 7)}
+                    {this.renderSquare(0, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(9)}
-                    {this.renderSquare(10)}
-                    {this.renderSquare(11)}
-                    {this.renderSquare(12)}
-                    {this.renderSquare(13)}
-                    {this.renderSquare(14)}
-                    {this.renderSquare(15)}
-                    {this.renderSquare(16)}
-                    {this.renderSquare(17)}
+                    {this.renderSquare(1, 0)}
+                    {this.renderSquare(1, 1)}
+                    {this.renderSquare(1, 2)}
+                    {this.renderSquare(1, 3)}
+                    {this.renderSquare(1, 4)}
+                    {this.renderSquare(1, 5)}
+                    {this.renderSquare(1, 6)}
+                    {this.renderSquare(1, 7)}
+                    {this.renderSquare(1, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(18)}
-                    {this.renderSquare(19)}
-                    {this.renderSquare(20)}
-                    {this.renderSquare(21)}
-                    {this.renderSquare(22)}
-                    {this.renderSquare(23)}
-                    {this.renderSquare(24)}
-                    {this.renderSquare(25)}
-                    {this.renderSquare(26)}
+                    {this.renderSquare(2, 0)}
+                    {this.renderSquare(2, 1)}
+                    {this.renderSquare(2, 2)}
+                    {this.renderSquare(2, 3)}
+                    {this.renderSquare(2, 4)}
+                    {this.renderSquare(2, 5)}
+                    {this.renderSquare(2, 6)}
+                    {this.renderSquare(2, 7)}
+                    {this.renderSquare(2, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(27)}
-                    {this.renderSquare(28)}
-                    {this.renderSquare(29)}
-                    {this.renderSquare(30)}
-                    {this.renderSquare(31)}
-                    {this.renderSquare(32)}
-                    {this.renderSquare(33)}
-                    {this.renderSquare(34)}
-                    {this.renderSquare(35)}
+                    {this.renderSquare(3, 0)}
+                    {this.renderSquare(3, 1)}
+                    {this.renderSquare(3, 2)}
+                    {this.renderSquare(3, 3)}
+                    {this.renderSquare(3, 4)}
+                    {this.renderSquare(3, 5)}
+                    {this.renderSquare(3, 6)}
+                    {this.renderSquare(3, 7)}
+                    {this.renderSquare(3, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(36)}
-                    {this.renderSquare(37)}
-                    {this.renderSquare(38)}
-                    {this.renderSquare(39)}
-                    {this.renderSquare(40)}
-                    {this.renderSquare(41)}
-                    {this.renderSquare(42)}
-                    {this.renderSquare(43)}
-                    {this.renderSquare(44)}
+                    {this.renderSquare(4, 0)}
+                    {this.renderSquare(4, 1)}
+                    {this.renderSquare(4, 2)}
+                    {this.renderSquare(4, 3)}
+                    {this.renderSquare(4, 4)}
+                    {this.renderSquare(4, 5)}
+                    {this.renderSquare(4, 6)}
+                    {this.renderSquare(4, 7)}
+                    {this.renderSquare(4, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(45)}
-                    {this.renderSquare(46)}
-                    {this.renderSquare(47)}
-                    {this.renderSquare(48)}
-                    {this.renderSquare(49)}
-                    {this.renderSquare(50)}
-                    {this.renderSquare(51)}
-                    {this.renderSquare(52)}
-                    {this.renderSquare(53)}
+                    {this.renderSquare(5, 0)}
+                    {this.renderSquare(5, 1)}
+                    {this.renderSquare(5, 2)}
+                    {this.renderSquare(5, 3)}
+                    {this.renderSquare(5, 4)}
+                    {this.renderSquare(5, 5)}
+                    {this.renderSquare(5, 6)}
+                    {this.renderSquare(5, 7)}
+                    {this.renderSquare(5, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(54)}
-                    {this.renderSquare(55)}
-                    {this.renderSquare(56)}
-                    {this.renderSquare(57)}
-                    {this.renderSquare(58)}
-                    {this.renderSquare(59)}
-                    {this.renderSquare(60)}
-                    {this.renderSquare(61)}
-                    {this.renderSquare(62)}
+                    {this.renderSquare(6, 0)}
+                    {this.renderSquare(6, 1)}
+                    {this.renderSquare(6, 2)}
+                    {this.renderSquare(6, 3)}
+                    {this.renderSquare(6, 4)}
+                    {this.renderSquare(6, 5)}
+                    {this.renderSquare(6, 6)}
+                    {this.renderSquare(6, 7)}
+                    {this.renderSquare(6, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(63)}
-                    {this.renderSquare(64)}
-                    {this.renderSquare(65)}
-                    {this.renderSquare(66)}
-                    {this.renderSquare(67)}
-                    {this.renderSquare(68)}
-                    {this.renderSquare(69)}
-                    {this.renderSquare(70)}
-                    {this.renderSquare(71)}
+                    {this.renderSquare(7, 0)}
+                    {this.renderSquare(7, 1)}
+                    {this.renderSquare(7, 2)}
+                    {this.renderSquare(7, 3)}
+                    {this.renderSquare(7, 4)}
+                    {this.renderSquare(7, 5)}
+                    {this.renderSquare(7, 6)}
+                    {this.renderSquare(7, 7)}
+                    {this.renderSquare(7, 8)}
                 </div>
                 <div className="">
-                    {this.renderSquare(72)}
-                    {this.renderSquare(73)}
-                    {this.renderSquare(74)}
-                    {this.renderSquare(75)}
-                    {this.renderSquare(76)}
-                    {this.renderSquare(77)}
-                    {this.renderSquare(78)}
-                    {this.renderSquare(79)}
-                    {this.renderSquare(80)}
+                    {this.renderSquare(8, 0)}
+                    {this.renderSquare(8, 1)}
+                    {this.renderSquare(8, 2)}
+                    {this.renderSquare(8, 3)}
+                    {this.renderSquare(8, 4)}
+                    {this.renderSquare(8, 5)}
+                    {this.renderSquare(8, 6)}
+                    {this.renderSquare(8, 7)}
+                    {this.renderSquare(8, 8)}
                 </div>
             </div>
         );
