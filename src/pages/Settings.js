@@ -37,7 +37,7 @@ function Settings() {
                 <div className='inline-flex justify-center items-center mb-20'>
                     <ChangeTheme />
                 </div>
-                <div className='flex flex-col items-center mt-32'>
+                <div className='flex flex-col items-center md:mt-32'>
                     <h1 className='text-5xl md:text-7xl uppercase'>Credits</h1>
                     <div className='flex justify-center flex-col my-10 text-4xl md:text-5xl'>
                         <h2 className='text-center'>Demir Altay</h2>
