@@ -68,7 +68,7 @@ class Board extends React.Component {
         return (
             <div>
                 <div className="mb-[10px] text-3xl">{status}</div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(0, 0)}
                     {this.renderSquare(0, 1)}
                     {this.renderSquare(0, 2)}
@@ -79,7 +79,7 @@ class Board extends React.Component {
                     {this.renderSquare(0, 7)}
                     {this.renderSquare(0, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(1, 0)}
                     {this.renderSquare(1, 1)}
                     {this.renderSquare(1, 2)}
@@ -90,7 +90,7 @@ class Board extends React.Component {
                     {this.renderSquare(1, 7)}
                     {this.renderSquare(1, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(2, 0)}
                     {this.renderSquare(2, 1)}
                     {this.renderSquare(2, 2)}
@@ -101,7 +101,7 @@ class Board extends React.Component {
                     {this.renderSquare(2, 7)}
                     {this.renderSquare(2, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(3, 0)}
                     {this.renderSquare(3, 1)}
                     {this.renderSquare(3, 2)}
@@ -112,7 +112,7 @@ class Board extends React.Component {
                     {this.renderSquare(3, 7)}
                     {this.renderSquare(3, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(4, 0)}
                     {this.renderSquare(4, 1)}
                     {this.renderSquare(4, 2)}
@@ -123,7 +123,7 @@ class Board extends React.Component {
                     {this.renderSquare(4, 7)}
                     {this.renderSquare(4, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(5, 0)}
                     {this.renderSquare(5, 1)}
                     {this.renderSquare(5, 2)}
@@ -134,7 +134,7 @@ class Board extends React.Component {
                     {this.renderSquare(5, 7)}
                     {this.renderSquare(5, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(6, 0)}
                     {this.renderSquare(6, 1)}
                     {this.renderSquare(6, 2)}
@@ -145,7 +145,7 @@ class Board extends React.Component {
                     {this.renderSquare(6, 7)}
                     {this.renderSquare(6, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(7, 0)}
                     {this.renderSquare(7, 1)}
                     {this.renderSquare(7, 2)}
@@ -156,7 +156,7 @@ class Board extends React.Component {
                     {this.renderSquare(7, 7)}
                     {this.renderSquare(7, 8)}
                 </div>
-                <div className="">
+                <div className="flex justify-center">
                     {this.renderSquare(8, 0)}
                     {this.renderSquare(8, 1)}
                     {this.renderSquare(8, 2)}
