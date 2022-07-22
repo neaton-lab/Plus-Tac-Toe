@@ -29,7 +29,7 @@ function Home() {
         <div className='flex w-screen justify-center'>
 
           <Link to='/game'> {/* link to game page */}
-            <button className=' md:bottom-[100px] md:w-[300px] bg-gray-400 hover:bg-gray-500 text-gray-800 text-3xl md:text-6xl font-bold mt-[60px] 
+            <button className='absolute -translate-x-1/2  md:bottom-[100px] md:w-[300px] bg-gray-400 hover:bg-gray-500 text-gray-800 text-3xl md:text-6xl font-bold mt-[60px] 
                 md:mt-[100px] py-2 px-10 md:px-20 rounded-full'>
               Start
             </button>

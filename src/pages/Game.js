@@ -4,7 +4,7 @@ import RenderGame from '../components/RenderGame'
 
 function Game() {
     return (
-        <body>
+        <body className='min-h-screen'>
             <Link to="/">
                 {/* Icon from Hero Icons Icon-Arrow-Circle-Left */}
                 <button className='text-gray-700 text-center bg-gray-400 hover:bg-gray-500 px-2 py-2 md:px-4 md:py-4 m-5 rounded-full'>
@@ -15,8 +15,8 @@ function Game() {
             </Link>
             <div className='flex left-0 flex-row'>
                 <div className='w-[100px] md:w-[400px]'>
-                    <h1 className='text-center text-2xl md:text-5xl mb-12'>History</h1>
-                    <div className='h-[550px] md:h-[900px] text-center text-3xl'>
+                    <h1 className='text-center text-2xl md:text-5xl'>History</h1>
+                    <div className='h-[550px] md:h-[800px] text-center text-3xl'>
                         {/* History goes here */}
                     </div>
                 </div>
