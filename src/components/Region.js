@@ -14,7 +14,7 @@ class Region {
         for (let i = this.top ; i <= this.bottom ; i++) {
             // Go through each row. It the tile isn't claimed, just move on to the next row. If the you're at the end of the row and they're all claimed, then return true
             for (let j = this.left ; j <= this.right ; j++) {
-                if (this.tiles[i][j] !== checkTarget) {
+                if (this.getClaimer(i, j) !== checkTarget) {
                     break;
                 }
                 else if (j === this.right) {
@@ -31,7 +31,7 @@ class Region {
         for (let i = this.left ; i <= this.right ; i++) {
             // Go through each column. It the tile isn't claimed, just move on to the next column. If the you're at the botton of the column and they're all claimed, then return true
             for (let j = this.top ; j <= this.botton ; j++) {
-                if (this.tiles[j][i] !== checkTarget) {
+                if (this.getClaimer(i, j) !== checkTarget) {
                     break;
                 }
                 else if (j === this.bottom) {

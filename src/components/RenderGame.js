@@ -1,5 +1,6 @@
 import React from "react";
 import "./Region"
+import Region from "./Region";
 
 class Square extends React.Component {
 
@@ -48,6 +49,20 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.grid = new Grid();
+        this.initRegions(this);
+    }
+
+    initRegions = (board) => {
+        board.regions = [];
+        board.regions[0] = new Region(0, 0, 2, 2, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(3, 5, 2, 2, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(6, 8, 2, 2, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(0, 0, 3, 5, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(3, 5, 3, 5, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(6, 8, 3, 5, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(0, 0, 6, 8, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(3, 5, 6, 8, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
+        board.regions[0] = new Region(6, 8, 6, 8, board.sendClaimer.bind(board), board.getRegionWinner.bind(board));
     }
     
     getClaim = (x_pos, y_pos, player) => {
@@ -70,7 +85,7 @@ class Board extends React.Component {
 
     // Easy way to get the winner of a region
     getRegionWinner = () => {
-        return winner;
+        return this.winner;
     }
 
     render() {
