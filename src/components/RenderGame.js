@@ -1,4 +1,5 @@
 import React from "react";
+import "./Region"
 
 class Square extends React.Component {
 
@@ -60,6 +61,16 @@ class Board extends React.Component {
                 y_pos={y_pos}
                 sendClaim={this.getClaim.bind(this)}
                 />;
+    }
+
+    // Used to send the value of a square to a region for checking
+    sendClaimer = (x_pos, y_pos) => {
+        return this.grid.grid[x_pos][y_pos];
+    }
+
+    // Easy way to get the winner of a region
+    getRegionWinner = () => {
+        return winner;
     }
 
     render() {
