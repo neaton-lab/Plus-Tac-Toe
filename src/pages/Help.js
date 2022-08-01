@@ -13,7 +13,7 @@ function Help() {
             </Link>
             <h1 className='text-5xl md:text-9xl text-center font-bold'>How To Play</h1>
             <div>
-                <ol className='text-3xl md:text-5xl mx-[75px] md:mx-[300px] my-20 list-decimal'>
+                <ol className='text-3xl md:text-5xl mx-[75px] md:mx-[150px] lg:mx-[300px] my-20 list-decimal'>
                     <li className='my-10'>The game will start with player 1</li>
                     <li className='my-10'>Each turn, every player will claim one, and only one tile</li>
                     <li className='my-10'>If a player claims every tile in a row, column, or diagonal of a region, they will win that region</li>
