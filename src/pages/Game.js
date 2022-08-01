@@ -14,8 +14,8 @@ function Game() {
                 </button>
             </Link>
             <div className='flex left-0 flex-row'>
-                <div className='w-[100px] md:w-[400px]'>
-                    <h1 className='text-center text-2xl md:text-5xl'>History</h1>
+                <div className='w-[100px] lg:w-[400px] '>
+                    <h1 className='text-center text-2xl lg:text-5xl'>History</h1>
                     <div className='h-[550px] md:h-[800px] text-center text-3xl'>
                         {/* History goes here */}
                     </div>
