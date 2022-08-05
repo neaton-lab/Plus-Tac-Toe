@@ -11,7 +11,7 @@ function Square({ turn, onClick, currentPlayers }) {
   const [myTurn, setMyTurn] = useState(-1);
 
   useEffect(() => {
-    console.log("HMMMM");
+    console.log("HMMM");
   }, [turn]);
 
   return (
@@ -107,61 +107,45 @@ class GameBoard extends React.Component {
     board.regions = [];
     board.regions[0] = new Region(
       0,
-      0,
       2,
+      0,
       2,
       board.sendClaimer.bind(board),
       board.getRegionWinner.bind(board)
     );
-    board.regions[0] = new Region(
-      3,
-      5,
-      2,
-      2,
-      board.sendClaimer.bind(board),
-      board.getRegionWinner.bind(board)
-    );
-    board.regions[0] = new Region(
-      6,
-      8,
-      2,
-      2,
-      board.sendClaimer.bind(board),
-      board.getRegionWinner.bind(board)
-    );
-    board.regions[0] = new Region(
+    board.regions[1] = new Region(
       0,
-      0,
+      2,
       3,
       5,
       board.sendClaimer.bind(board),
       board.getRegionWinner.bind(board)
     );
-    board.regions[0] = new Region(
-      3,
-      5,
-      3,
-      5,
-      board.sendClaimer.bind(board),
-      board.getRegionWinner.bind(board)
-    );
-    board.regions[0] = new Region(
-      6,
-      8,
-      3,
-      5,
-      board.sendClaimer.bind(board),
-      board.getRegionWinner.bind(board)
-    );
-    board.regions[0] = new Region(
+    board.regions[2] = new Region(
       0,
-      0,
+      2,
       6,
       8,
       board.sendClaimer.bind(board),
       board.getRegionWinner.bind(board)
     );
-    board.regions[0] = new Region(
+    board.regions[3] = new Region(
+      3,
+      5,
+      0,
+      2,
+      board.sendClaimer.bind(board),
+      board.getRegionWinner.bind(board)
+    );
+    board.regions[4] = new Region(
+      3,
+      5,
+      3,
+      5,
+      board.sendClaimer.bind(board),
+      board.getRegionWinner.bind(board)
+    );
+    board.regions[5] = new Region(
       3,
       5,
       6,
@@ -169,7 +153,23 @@ class GameBoard extends React.Component {
       board.sendClaimer.bind(board),
       board.getRegionWinner.bind(board)
     );
-    board.regions[0] = new Region(
+    board.regions[6] = new Region(
+      6,
+      8,
+      0,
+      2,
+      board.sendClaimer.bind(board),
+      board.getRegionWinner.bind(board)
+    );
+    board.regions[7] = new Region(
+      6,
+      8,
+      3,
+      5,
+      board.sendClaimer.bind(board),
+      board.getRegionWinner.bind(board)
+    );
+    board.regions[8] = new Region(
       6,
       8,
       6,
@@ -192,12 +192,16 @@ class GameBoard extends React.Component {
         sendClaim={this.getClaim.bind(this)}
         turn={this.turn}
         onClick={() => {
-          this.turn++;
           console.log("PRINTING CURRENT TURN");
           console.log(this.turn);
           this.forceUpdate();
-          this.grid[x_pos][y_pos] =
-            this.turnText[this.turn % this.props.state.currentPlayers];
+          console.log("(" + x_pos + ", " + y_pos + ")");
+          this.grid[x_pos][y_pos] = this.turnText[this.turn % this.props.state.currentPlayers];
+          let winner = this.checkWinner();
+          if (winner !== -1) {
+            alert("Player " + this.turnText[winner] + " wins!");
+          }
+          this.turn++;
         }}
         currentPlayers={this.props.state.currentPlayers}
       />
@@ -206,7 +210,8 @@ class GameBoard extends React.Component {
 
   // Used to send the value of a square to a region for checking
   sendClaimer = (x_pos, y_pos) => {
-    return this.grid.grid[x_pos][y_pos];
+    // console.log("(" + x_pos + ", " + y_pos + "): " + this.grid[x_pos][y_pos])
+    return this.grid[x_pos][y_pos];
   };
 
   // Easy way to get the winner of a region
@@ -214,10 +219,60 @@ class GameBoard extends React.Component {
     return this.winner;
   };
 
+  // Returns the player index if there is a winner, otherwise return -1
+  checkWinner = () => {
+    // Initialization stuff
+    let winCount = []
+    let freeRegions = 9;
+    for (let i = 0 ; i < this.props.state.currentPlayers ; i++) {
+      winCount[i] = 0;
+    }
+
+    console.log(freeRegions);
+    // Gather who has won what regions
+    for (let i = 0 ; i < this.props.state.currentPlayers ; i++) {
+      for (let j = 0 ; j < 9 ; j++) {
+        console.log("Player: " + this.turnText[i % this.props.state.currentPlayers]);
+        console.log("Region: " + j);
+        let result  = this.regions[j].checkClaimed(this.turnText[i % this.props.state.currentPlayers]);
+        if (result) {
+          winCount[i]++;
+          freeRegions--;
+          console.log(freeRegions);
+        }
+        else if (this.regions[j].checkFull()) {
+          console.log("Region " + j + " full.");
+          freeRegions--;
+          console.log(freeRegions);
+        }
+        console.log("");
+      }
+    }
+    console.log("");
+    // console.log("");
+    // console.log("");
+
+    console.log(freeRegions);
+    // Still regions to win === no winner yet
+    if (freeRegions !== 0) {
+      return -1;
+    }
+    // Every region has a winner or is full, just need to find who has the most
+    if (freeRegions === 0) {
+      let maxIndex = 0;
+      for (let i = 1 ; i < this.props.state.currentPlayers ; i++) {
+        if (winCount[maxIndex] > winCount[i]) {
+          maxIndex = i;
+        }
+      }
+      return maxIndex;
+    }
+  }
+
   render() {
     const status = "Next player: X";
     const board = "Default";
-    if (this.props.state.currentBoard % 3 == 0) {
+    if (this.props.state.currentBoard % 3 === 0) {
       return (
         <div>
           <div className="mb-[10px] text-3xl">{status}</div>
@@ -286,7 +341,7 @@ class GameBoard extends React.Component {
           </div>
         </div>
       );
-    } else if (this.props.state.currentBoard % 3 == 1) {
+    } else if (this.props.state.currentBoard % 3 === 1) {
       return (
         <div>
           <div className="text-4xl pb-4">
@@ -298,106 +353,106 @@ class GameBoard extends React.Component {
               {this.renderSquare(0, 0)}
               {this.renderSquare(0, 1)}
               {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(1, 0)}
+              {this.renderSquare(1, 1)}
+              {this.renderSquare(1, 2)}
+              {this.renderSquare(2, 0)}
+              {this.renderSquare(2, 1)}
+              {this.renderSquare(2, 2)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 ">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
               {this.renderSquare(0, 3)}
               {this.renderSquare(0, 4)}
               {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(1, 3)}
+              {this.renderSquare(1, 4)}
+              {this.renderSquare(1, 5)}
+              {this.renderSquare(2, 3)}
+              {this.renderSquare(2, 4)}
+              {this.renderSquare(2, 5)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
               {this.renderSquare(0, 6)}
               {this.renderSquare(0, 7)}
               {this.renderSquare(0, 8)}
+              {this.renderSquare(1, 6)}
+              {this.renderSquare(1, 7)}
+              {this.renderSquare(1, 8)}
+              {this.renderSquare(2, 6)}
+              {this.renderSquare(2, 7)}
+              {this.renderSquare(2, 8)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(3, 0)}
+              {this.renderSquare(3, 1)}
+              {this.renderSquare(3, 2)}
+              {this.renderSquare(4, 0)}
+              {this.renderSquare(4, 1)}
+              {this.renderSquare(4, 2)}
+              {this.renderSquare(5, 0)}
+              {this.renderSquare(5, 1)}
+              {this.renderSquare(5, 2)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(3, 3)}
+              {this.renderSquare(3, 4)}
+              {this.renderSquare(3, 5)}
+              {this.renderSquare(4, 3)}
+              {this.renderSquare(4, 4)}
+              {this.renderSquare(4, 5)}
+              {this.renderSquare(5, 3)}
+              {this.renderSquare(5, 4)}
+              {this.renderSquare(5, 5)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(3, 6)}
+              {this.renderSquare(3, 7)}
+              {this.renderSquare(3, 8)}
+              {this.renderSquare(4, 6)}
+              {this.renderSquare(4, 7)}
+              {this.renderSquare(4, 8)}
+              {this.renderSquare(5, 6)}
+              {this.renderSquare(5, 7)}
+              {this.renderSquare(5, 8)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(6, 0)}
+              {this.renderSquare(6, 1)}
+              {this.renderSquare(6, 2)}
+              {this.renderSquare(7, 0)}
+              {this.renderSquare(7, 1)}
+              {this.renderSquare(7, 2)}
+              {this.renderSquare(8, 0)}
+              {this.renderSquare(8, 1)}
+              {this.renderSquare(8, 2)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(6, 3)}
+              {this.renderSquare(6, 4)}
+              {this.renderSquare(6, 5)}
+              {this.renderSquare(7, 3)}
+              {this.renderSquare(7, 4)}
+              {this.renderSquare(7, 5)}
+              {this.renderSquare(8, 3)}
+              {this.renderSquare(8, 4)}
+              {this.renderSquare(8, 5)}
             </div>
             <div className="grid grid-cols-3 grid-rows-3 bg-red-400">
-              {this.renderSquare(0, 0)}
-              {this.renderSquare(0, 1)}
-              {this.renderSquare(0, 2)}
-              {this.renderSquare(0, 3)}
-              {this.renderSquare(0, 4)}
-              {this.renderSquare(0, 5)}
-              {this.renderSquare(0, 6)}
-              {this.renderSquare(0, 7)}
-              {this.renderSquare(0, 8)}
+              {this.renderSquare(6, 6)}
+              {this.renderSquare(6, 7)}
+              {this.renderSquare(6, 8)}
+              {this.renderSquare(7, 6)}
+              {this.renderSquare(7, 7)}
+              {this.renderSquare(7, 8)}
+              {this.renderSquare(8, 6)}
+              {this.renderSquare(8, 7)}
+              {this.renderSquare(8, 8)}
             </div>
           </div>
         </div>
       );
     }
-    if (this.props.state.currentBoard % 3 == 2) {
+    if (this.props.state.currentBoard % 3 === 2) {
       return (
         <div>
           <div className="mb-[10px] text-3xl">{status}</div>
