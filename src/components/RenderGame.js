@@ -1,10 +1,9 @@
 import React from "react";
 import "./Region";
 import Region from "./Region";
-import Board from "./Board";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Confetti from "./Confetti";
 
 function Square({ turn, onClick, currentPlayers }) {
   const turnText = ["X", "O", "✓", "#"];
@@ -28,40 +27,6 @@ function Square({ turn, onClick, currentPlayers }) {
     </button>
   );
 }
-
-// class Square extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       value: null,
-//     };
-//     // Bind the position to easily usable values
-//     this.x_pos = props.x_pos;
-//     this.y_pos = props.y_pos;
-//     this.turn = props.turn;
-//     this.onClick = props.onClick;
-//     this.turnText = ["X", "O", "✓", "#"];
-//     this.currentPlayers = props.currentPlayers;
-//   }
-
-//   claim = (player) => {
-//     this.props.sendClaim(this.x_pos, this.y_pos, player);
-//   };
-
-//   render() {
-//     return (
-//       <button
-//         className="bg-white hover:bg-slate-300 text-black h-[40px] w-[40px] md:h-[75px] md:w-[75px] lg:h-[90px] lg:w-[90px] border-2 md:border-4 border-black text-3xl md:text-5xl text-center -mt-1 -mr-1 p-0"
-//         onClick={() => {
-//           this.onClick();
-//         }}
-//       >
-//         {this.turnText[this.turn % this.currentPlayers]}
-//         {console.log(this.turn)}
-//       </button>
-//     );
-//   }
-// }
 
 class Grid {
   constructor() {
@@ -196,10 +161,12 @@ class GameBoard extends React.Component {
           console.log(this.turn);
           this.forceUpdate();
           console.log("(" + x_pos + ", " + y_pos + ")");
-          this.grid[x_pos][y_pos] = this.turnText[this.turn % this.props.state.currentPlayers];
+          this.grid[x_pos][y_pos] =
+            this.turnText[this.turn % this.props.state.currentPlayers];
           let winner = this.checkWinner();
-          if (winner !== -1) {
+          if (winner === -1) {
             alert("Player " + this.turnText[winner] + " wins!");
+            <Confetti />;
           }
           this.turn++;
         }}
@@ -222,25 +189,28 @@ class GameBoard extends React.Component {
   // Returns the player index if there is a winner, otherwise return -1
   checkWinner = () => {
     // Initialization stuff
-    let winCount = []
+    let winCount = [];
     let freeRegions = 9;
-    for (let i = 0 ; i < this.props.state.currentPlayers ; i++) {
+    for (let i = 0; i < this.props.state.currentPlayers; i++) {
       winCount[i] = 0;
     }
 
     console.log(freeRegions);
     // Gather who has won what regions
-    for (let i = 0 ; i < this.props.state.currentPlayers ; i++) {
-      for (let j = 0 ; j < 9 ; j++) {
-        console.log("Player: " + this.turnText[i % this.props.state.currentPlayers]);
+    for (let i = 0; i < this.props.state.currentPlayers; i++) {
+      for (let j = 0; j < 9; j++) {
+        console.log(
+          "Player: " + this.turnText[i % this.props.state.currentPlayers]
+        );
         console.log("Region: " + j);
-        let result  = this.regions[j].checkClaimed(this.turnText[i % this.props.state.currentPlayers]);
+        let result = this.regions[j].checkClaimed(
+          this.turnText[i % this.props.state.currentPlayers]
+        );
         if (result) {
           winCount[i]++;
           freeRegions--;
           console.log(freeRegions);
-        }
-        else if (this.regions[j].checkFull()) {
+        } else if (this.regions[j].checkFull()) {
           console.log("Region " + j + " full.");
           freeRegions--;
           console.log(freeRegions);
@@ -260,18 +230,17 @@ class GameBoard extends React.Component {
     // Every region has a winner or is full, just need to find who has the most
     if (freeRegions === 0) {
       let maxIndex = 0;
-      for (let i = 1 ; i < this.props.state.currentPlayers ; i++) {
+      for (let i = 1; i < this.props.state.currentPlayers; i++) {
         if (winCount[maxIndex] > winCount[i]) {
           maxIndex = i;
         }
       }
       return maxIndex;
     }
-  }
+  };
 
   render() {
     const status = "Next player: X";
-    const board = "Default";
     if (this.props.state.currentBoard % 3 === 0) {
       return (
         <div>
