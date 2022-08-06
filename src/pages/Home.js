@@ -38,7 +38,6 @@ function Home() {
             decBoard={() => decBoard()}
             currentBoard={currentBoard}
           />{" "}
-          {/* Pulls code from Board File under ./components/Board */}
         </div>
 
         {/* num players option */}
@@ -50,7 +49,6 @@ function Home() {
             currentPlayers={currentPlayers}
             setPlayers={setCurrentPlayers}
           />{" "}
-          {/* Pulls code from Players File under ./components/Players */}
         </div>
 
         {/* start, settings, and help button. button logos imported from heroicons as svg*/}

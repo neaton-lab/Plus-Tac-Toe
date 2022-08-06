@@ -3,7 +3,8 @@ import "./Region";
 import Region from "./Region";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Confetti from "./Confetti";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 
 function Square({ turn, onClick, currentPlayers }) {
   const turnText = ["X", "O", "✓", "#"];
@@ -166,7 +167,13 @@ class GameBoard extends React.Component {
           let winner = this.checkWinner();
           if (winner !== -1) {
             alert("Player " + this.turnText[winner] + " wins!");
-            <Confetti />;
+            const { width, height } = useWindowSize();
+            <Confetti
+              width={width}
+              height={height}
+              numberOfPieces={500}
+              recycle={false}
+            />;
           }
           this.turn++;
         }}
