@@ -164,7 +164,7 @@ class GameBoard extends React.Component {
           this.grid[x_pos][y_pos] =
             this.turnText[this.turn % this.props.state.currentPlayers];
           let winner = this.checkWinner();
-          if (winner === -1) {
+          if (winner !== -1) {
             alert("Player " + this.turnText[winner] + " wins!");
             <Confetti />;
           }
