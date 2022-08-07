@@ -14,17 +14,18 @@ class Region {
         for (let i = this.top ; i <= this.bottom ; i++) {
             // Go through each row. It the tile isn't claimed, just move on to the next row. If the you're at the end of the row and they're all claimed, then return true
             for (let j = this.left ; j <= this.right ; j++) {
-                if (this.getClaimer(j, i) !== checkTarget) {
+                // console.log("(" + j + ", " + i + "): " + this.getClaimer(j, i));
+                if (this.getClaimer(i, j) !== checkTarget) {
                     break;
                 }
                 else if (j === this.right) {
-                    console.log("Row Check: true");
+                    // console.log("Row Check: true");
                     return true;
                 }
             }
         }
         // If no row fully claimed, return false
-        console.log("Row Check: false");
+        // console.log("Row Check: false");
         return false;
     }
     // Checks for if the column has been fully claimed
@@ -51,7 +52,7 @@ class Region {
     checkRightDown = function(checkTarget) {
         // Make sure that the region is square
         if ((this.right - this.left) !== (this.bottom - this.top)){
-            console.log("Right Down Check: false");
+            // console.log("Right Down Check: false");
             return false;
         }
 
@@ -59,11 +60,11 @@ class Region {
         for (let i = 0 ; i < (this.bottom - this.top) ; i++)
         {
             if (this.getClaimer(i+this.left, i+this.top) !== checkTarget) {
-                console.log("Right Down Check: false");
+                // console.log("Right Down Check: false");
                 return false;
             }
         }
-        console.log("Right Down Check: true");
+        // console.log("Right Down Check: true");
         return true;
     }
 
@@ -79,7 +80,6 @@ class Region {
         // Have to normalize for this one. Yeah, a bit less readable, but this is more general
         for (let i = 0 ; i < (this.bottom - this.top) ; i++)
         {
-            console.log("(" + this.right-i + ", " + this.top+i + ")");
             if (this.getClaimer(this.right-i, this.top+i) !== checkTarget) {
                 // console.log("Left Down Check: false");
                 return false;
@@ -103,7 +103,7 @@ class Region {
             for (let j = this.left ; j <= this.right ; j++) {
                 // console.log("(" + i + ", " + j + "): " + this.getClaimer(i,j));
                 if (this.getClaimer(j, i) == "") {
-                    console.log("(" + j + ", " + i + ") is empty");
+                    // console.log("(" + j + ", " + i + ") is empty");
                     // console.log("Full Check: false");
                     return false;
                 }

@@ -166,6 +166,8 @@ class GameBoard extends React.Component {
             this.turnText[this.turn % this.props.state.currentPlayers];
           let winner = this.checkWinner();
           if (winner !== -1) {
+            console.log(winner);
+            console.log(this.turnText[winner]);
             alert("Player " + this.turnText[winner] + " wins!");
             const { width, height } = useWindowSize();
             <Confetti
@@ -206,13 +208,9 @@ class GameBoard extends React.Component {
     // Gather who has won what regions
     for (let i = 0; i < this.props.state.currentPlayers; i++) {
       for (let j = 0; j < 9; j++) {
-        console.log(
-          "Player: " + this.turnText[i % this.props.state.currentPlayers]
-        );
+        console.log("Player: " + this.turnText[i % this.props.state.currentPlayers]);
         console.log("Region: " + j);
-        let result = this.regions[j].checkClaimed(
-          this.turnText[i % this.props.state.currentPlayers]
-        );
+        let result = this.regions[j].checkClaimed(this.turnText[i % this.props.state.currentPlayers]);
         if (result) {
           winCount[i]++;
           freeRegions--;
@@ -222,14 +220,15 @@ class GameBoard extends React.Component {
           freeRegions--;
           console.log(freeRegions);
         }
+        console.log(winCount);
         console.log("");
       }
     }
-    console.log("");
+    // console.log("");
     // console.log("");
     // console.log("");
 
-    console.log(freeRegions);
+    // console.log(freeRegions);
     // Still regions to win === no winner yet
     if (freeRegions !== 0) {
       return -1;
@@ -238,7 +237,7 @@ class GameBoard extends React.Component {
     if (freeRegions === 0) {
       let maxIndex = 0;
       for (let i = 1; i < this.props.state.currentPlayers; i++) {
-        if (winCount[maxIndex] > winCount[i]) {
+        if (winCount[i] > winCount[maxIndex]) {
           maxIndex = i;
         }
       }
