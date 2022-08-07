@@ -78,7 +78,7 @@ function Home() {
               <button className="absolute -translate-x-2 md:-translate-x-2 bottom-0 md:bottom-[150px] text-center right-0 text-gray-700 bg-gray-400 hover:bg-gray-500 px-2 py-2 md:px-3 md:py-3 m-5 mr-0 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -104,7 +104,7 @@ function Home() {
               <button className="absolute translate-x-12 md:-translate-x-2 bottom-0 md:bottom-[50px] text-center right-0 text-gray-700  bg-gray-400 hover:bg-gray-500 px-2 py-2 md:px-3 md:py-3 m-5 mr-0 rounded-full">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"

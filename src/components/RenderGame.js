@@ -208,9 +208,13 @@ class GameBoard extends React.Component {
     // Gather who has won what regions
     for (let i = 0; i < this.props.state.currentPlayers; i++) {
       for (let j = 0; j < 9; j++) {
-        console.log("Player: " + this.turnText[i % this.props.state.currentPlayers]);
+        console.log(
+          "Player: " + this.turnText[i % this.props.state.currentPlayers]
+        );
         console.log("Region: " + j);
-        let result = this.regions[j].checkClaimed(this.turnText[i % this.props.state.currentPlayers]);
+        let result = this.regions[j].checkClaimed(
+          this.turnText[i % this.props.state.currentPlayers]
+        );
         if (result) {
           winCount[i]++;
           freeRegions--;

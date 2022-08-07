@@ -10,7 +10,7 @@ function Game() {
         <button className="text-gray-700 text-center bg-gray-400 hover:bg-gray-500 px-2 py-2 md:px-4 md:py-4 m-5 rounded-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-7 w-7"
+            className="h-7 w-7"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
